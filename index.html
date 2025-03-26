@@ -1,234 +1,157 @@
-<!DOCTYPE html>  
-<html lang="fr">  
-<head>  
-    <meta charset="UTF-8">  
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-    <link rel="stylesheet" href="styles.css">  
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>  
-    <title>Tableau d'Utilisateurs avec Organigramme</title>  
-</head>  
-<body>  
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Tableau d'Utilisateurs avec Organigramme</title>
+</head>
+<body>
 
-<div class="container">  
-    <div class="table-wrapper">  
-        <h2>Liste d'Utilisateurs</h2>  
-        <input type="text" id="searchInput" placeholder="Rechercher par nom..." onkeyup="filterTable()">  
-        <input type="text" id="nameInput" placeholder="Nom" required>  
-        <input type="number" id="ageInput" placeholder="Âge" required>  
-        <input type="text" id="cityInput" placeholder="Ville" required>  
-        <button onclick="addUser()">Ajouter Utilisateur</button>  
-        <button onclick="deleteUser()">Supprimer Utilisateur Sélectionné</button>  
+<div class="container">
+    <div class="table-wrapper">
+        <h2>Liste d'Utilisateurs</h2>
+        <input type="text" id="searchInput" placeholder="Rechercher par nom..." onkeyup="filterTable()">
+        <input type="text" id="nameInput" placeholder="Nom" required>
+        <input type="number" id="ageInput" placeholder="Âge" required>
+        <input type="text" id="cityInput" placeholder="Ville" required>
+        <button onclick="addUser()">Ajouter Utilisateur</button>
+        <button onclick="deleteUser()">Supprimer Utilisateurs Sélectionnés</button>
 
-        <table id="userTable">  
-            <thead>  
-                <tr>  
-                    <th onclick="sortTable(0)">Nom &#x25B2;&#x25BC;</th>  
-                    <th onclick="sortTable(1)">Âge &#x25B2;&#x25BC;</th>  
-                    <th onclick="sortTable(2)">Ville &#x25B2;&#x25BC;</th>  
-                </tr>  
-            </thead>  
-            <tbody>  
-                <tr>  
-                    <td>Marie</td>  
-                    <td>28</td>  
-                    <td>Paris</td>  
-                </tr>  
-                <tr>  
-                    <td>Pierre</td>  
-                    <td>32</td>  
-                    <td>Lyon</td>  
-                </tr>  
-                <tr>  
-                    <td>Lucie</td>  
-                    <td>25</td>  
-                    <td>Marseille</td>  
-                </tr>  
-                <tr>  
-                    <td>Paul</td>  
-                    <td>45</td>  
-                    <td>Bordeaux</td>  
-                </tr>  
-                <tr>  
-                    <td>Sophie</td>  
-                    <td>30</td>  
-                    <td>Toulouse</td>  
-                </tr>  
-            </tbody>  
-        </table>  
-    </div>  
+        <table id="userTable">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th onclick="sortTable(1)">Nom &#x25B2;&#x25BC;</th>
+                    <th onclick="sortTable(2)">Âge &#x25B2;&#x25BC;</th>
+                    <th onclick="sortTable(3)">Ville &#x25B2;&#x25BC;</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
 
-    <div class="chart-wrapper">  
-        <canvas id="ageChart"></canvas>  
-    </div>  
-</div>  
+    <div class="chart-wrapper">
+        <canvas id="ageChart"></canvas>
+    </div>
+</div>
 
-<script>  
-function filterTable() {  
-    let input = document.getElementById("searchInput");  
-    let filter = input.value.toLowerCase();  
-    let table = document.getElementById("userTable");  
-    let tr = table.getElementsByTagName("tr");  
-
-    for (let i = 1; i < tr.length; i++) {  
-        let td = tr[i].getElementsByTagName("td")[0];  
-        if (td) {  
-            let txtValue = td.textContent || td.innerText;  
-            tr[i].style.display = txtValue.toLowerCase().indexOf(filter) > -1 ? "" : "none";  
-        }  
-    }  
-}  
-
-function sortTable(n) {  
-    let table = document.getElementById("userTable");  
-    let switching = true;  
-    let dir = "asc";   
-    let switchCount = 0;  
-
-    while (switching) {  
-        switching = false;  
-        let rows = table.rows;  
-        for (let i = 1; i < (rows.length - 1); i++) {  
-            let shouldSwitch = false;  
-            let x = rows[i].getElementsByTagName("TD")[n];  
-            let y = rows[i + 1].getElementsByTagName("TD")[n];  
-
-            if (dir === "asc") {  
-                if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {  
-                    shouldSwitch = true;  
-                    break;  
-                }  
-            } else if (dir === "desc") {  
-                if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {  
-                    shouldSwitch = true;  
-                    break;  
-                }  
-            }  
-        }  
-        if (shouldSwitch) {  
-            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);  
-            switching = true;  
-            switchCount++;  
-        } else {  
-            if (switchCount === 0 && dir === "asc") {  
-                dir = "desc";  
-                switching = true;  
-            }  
-        }  
-    }  
-}  
-
-function addUser() {  
-    const name = document.getElementById("nameInput").value;  
-    const age = document.getElementById("ageInput").value;  
-    const city = document.getElementById("cityInput").value;  
-
-    if (name && age && city) {  
-        const table = document.getElementById("userTable").getElementsByTagName("tbody")[0];  
-        const newRow = table.insertRow();  
-
-        newRow.innerHTML = `<td onclick="selectRow(this.parentNode)">${name}</td>  
-                            <td>${age}</td>  
-                            <td>${city}</td>`;  
-        
-        // Update the chart after adding a new user  
-        updateAgeChart();  
-
-        // Reset input fields  
-        document.getElementById("nameInput").value = "";  
-        document.getElementById("ageInput").value = "";  
-        document.getElementById("cityInput").value = "";  
-    } else {  
-        alert("Veuillez remplir tous les champs.");  
-    }  
-}  
-
-function selectRow(row) {  
-    const selected = document.getElementsByClassName('selected');  
-    for (let i = 0; i < selected.length; i++) {  
-        selected[i].classList.remove('selected');  
-    }  
-    row.classList.add('selected');  
-}  
-
-function deleteUser() {  
-    const table = document.getElementById("userTable");  
-    const selectedRow = table.getElementsByClassName('selected')[0];  
-    if (selectedRow) {  
-        table.deleteRow(selectedRow.rowIndex);  
-        // Update the chart after deleting a user  
-        updateAgeChart();  
-    } else {  
-        alert("Veuillez sélectionner un utilisateur à supprimer.");  
-    }  
-}  
-
-// Organigramme  
-const ageChartCtx = document.getElementById('ageChart').getContext('2d');  
-let ageChart = new Chart(ageChartCtx, {  
-    type: 'pie',  
-    data: {  
-        labels: ['<25', '25-34', '35-44', '45+'],  
-        datasets: [{  
-            label: 'Répartition des Âges',  
-            data: [0, 0, 0, 0], // Initial dummy values  
-            backgroundColor: [  
-                'rgba(255, 99, 132, 0.6)',  
-                'rgba(54, 162, 235, 0.6)',  
-                'rgba(255, 206, 86, 0.6)',  
-                'rgba(75, 192, 192, 0.6)'  
-            ],  
-            borderColor: 'rgba(255, 255, 255, 1)',  
-            borderWidth: 2  
-        }]  
-    },  
-    options: {  
-        responsive: true,  
-        plugins: {  
-            legend: {  
-                position: 'top',  
-            },  
-            title: {  
-                display: true,  
-                text: 'Répartition des Âges des Utilisateurs'  
-            }  
-        }  
-    }  
-});  
-
-function updateAgeChart() {  
-    const table = document.getElementById("userTable").getElementsByTagName("tbody")[0];  
-    const ageCount = { '<25': 0, '25-34': 0, '35-44': 0, '45+': 0 };  
-
-    for (let i = 0; i < table.rows.length; i++) {  
-        const age = parseInt(table.rows[i].cells[1].innerText);  
-        if (age < 25) {  
-            ageCount['<25']++;  
-        } else if (age >= 25 && age <= 34) {  
-            ageCount['25-34']++;  
-        } else if (age >= 35 && age <= 44) {  
-            ageCount['35-44']++;  
-        } else {  
-            ageCount['45+']++;  
-        }  
-    }  
-
-    let totalUsers = table.rows.length;  
+<script>
+function filterTable() {
+    let input = document.getElementById("searchInput").value.toLowerCase();
+    let table = document.getElementById("userTable").getElementsByTagName("tbody")[0];
+    let rows = table.getElementsByTagName("tr");
     
-    // Update data for the chart  
-    ageChart.data.datasets[0].data = [  
-        (ageCount['<25'] / totalUsers) * 100 || 0,  
-        (ageCount['25-34'] / totalUsers) * 100 || 0,  
-        (ageCount['35-44'] / totalUsers) * 100 || 0,  
-        (ageCount['45+'] / totalUsers) * 100 || 0  
-    ];  
+    for (let row of rows) {
+        let nameCell = row.getElementsByTagName("td")[1];
+        if (nameCell) {
+            let txtValue = nameCell.textContent || nameCell.innerText;
+            row.style.display = txtValue.toLowerCase().includes(input) ? "" : "none";
+        }
+    }
+}
+
+function addUser() {
+    const name = document.getElementById("nameInput").value;
+    const age = document.getElementById("ageInput").value;
+    const city = document.getElementById("cityInput").value;
+
+    if (name && age && city) {
+        const table = document.getElementById("userTable").getElementsByTagName("tbody")[0];
+        const newRow = table.insertRow();
+        newRow.innerHTML = `<td><input type="checkbox" class="rowCheckbox"></td>
+                            <td>${name}</td>
+                            <td>${age}</td>
+                            <td>${city}</td>`;
+        updateAgeChart();
+        document.getElementById("nameInput").value = "";
+        document.getElementById("ageInput").value = "";
+        document.getElementById("cityInput").value = "";
+    } else {
+        alert("Veuillez remplir tous les champs.");
+    }
+}
+
+function deleteUser() {
+    const table = document.getElementById("userTable").getElementsByTagName("tbody")[0];
+    const checkboxes = document.querySelectorAll(".rowCheckbox:checked");
     
-    ageChart.update();  
-}  
+    if (checkboxes.length === 0) {
+        alert("Veuillez sélectionner au moins un utilisateur à supprimer.");
+        return;
+    }
+    
+    checkboxes.forEach(checkbox => {
+        table.removeChild(checkbox.closest("tr"));
+    });
+    updateAgeChart();
+}
 
-// Initial population of the chart  
-updateAgeChart();  
+const ageChartCtx = document.getElementById('ageChart').getContext('2d');
+let ageChart = new Chart(ageChartCtx, {
+    type: 'pie',
+    data: {
+        labels: ['<25', '25-34', '35-44', '45+'],
+        datasets: [{
+            label: 'Répartition des Âges',
+            data: [0, 0, 0, 0],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.6)',
+                'rgba(54, 162, 235, 0.6)',
+                'rgba(255, 206, 86, 0.6)',
+                'rgba(75, 192, 192, 0.6)'
+            ],
+            borderColor: 'rgba(255, 255, 255, 1)',
+            borderWidth: 2
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'top',
+            },
+            title: {
+                display: true,
+                text: 'Répartition des Âges des Utilisateurs'
+            }
+        }
+    }
+});
 
-</script>  
+function updateAgeChart() {
+    const table = document.getElementById("userTable").getElementsByTagName("tbody")[0];
+    const ageCount = { '<25': 0, '25-34': 0, '35-44': 0, '45+': 0 };
 
-</body>  
-</html>  
+    for (let i = 0; i < table.rows.length; i++) {
+        const age = parseInt(table.rows[i].cells[2].innerText);
+        if (age < 25) {
+            ageCount['<25']++;
+        } else if (age >= 25 && age <= 34) {
+            ageCount['25-34']++;
+        } else if (age >= 35 && age <= 44) {
+            ageCount['35-44']++;
+        } else {
+            ageCount['45+']++;
+        }
+    }
+
+    let totalUsers = table.rows.length;
+    
+    ageChart.data.datasets[0].data = [
+        (ageCount['<25'] / totalUsers) * 100 || 0,
+        (ageCount['25-34'] / totalUsers) * 100 || 0,
+        (ageCount['35-44'] / totalUsers) * 100 || 0,
+        (ageCount['45+'] / totalUsers) * 100 || 0
+    ];
+    
+    ageChart.update();
+}
+
+updateAgeChart();
+</script>
+
+</body>
+</html>
