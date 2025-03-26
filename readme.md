@@ -28,13 +28,13 @@ Ce projet est une page de connexion simple qui permet à l'utilisateur de se con
 3. Entrez l'un des identifiants d'utilisateur définis dans le fichier `script.js` pour accéder au tableau de bord.
 
 ## Structure du Projet
-/mon-projet ├── index.html # Page de connexion ├── Dashboard.html # Page contenant le graphique ├── styles.css # Fichier CSS pour la mise en page ├── script.js # JavaScript pour la validation et la gestion des utilisateurs
+/mon-projet ├── index.html # Page contenant le graphique  ├── Dpage de connexion.html # Page de connexion├── styles.css # Fichier CSS pour la mise en page ├── script.js # JavaScript pour la validation et la gestion des utilisateurs
 
 
 ## Détails sur le Code
 
 ### Fichier `index.html`
-Ce fichier contient le formulaire de connexion avec deux champs : **Nom d'utilisateur** et **Mot de passe**. Le formulaire utilise JavaScript pour valider les informations d'identification avant de rediriger l'utilisateur vers le tableau de bord.
+Ce fichier contient un graphique généré avec **Chart.js**. Un graphique simple représentant l'activité de l'utilisateur est tracé à partir de données simulées.
 
 ### Fichier `styles.css`
 Ce fichier CSS définit le style de la page de connexion et de la page du tableau de bord. Il inclut des règles de mise en page pour centrer le formulaire de connexion et le bouton, et pour styliser le graphique sur le tableau de bord.
@@ -42,8 +42,8 @@ Ce fichier CSS définit le style de la page de connexion et de la page du tablea
 ### Fichier `script.js`
 Le fichier JavaScript contient un tableau simulant les utilisateurs avec leurs informations de connexion. La fonction `validateLogin` vérifie si l'utilisateur existe et si le mot de passe est correct. Si c'est le cas, l'utilisateur est redirigé vers la page contenant le graphique. Sinon, un message d'erreur est affiché.
 
-### Fichier `dashboard.html`
-Ce fichier contient un graphique généré avec **Chart.js**. Un graphique simple représentant l'activité de l'utilisateur est tracé à partir de données simulées.
+### Fichier `PAGE DE CONNEXION.html`
+Ce fichier contient le formulaire de connexion avec deux champs : **Nom d'utilisateur** et **Mot de passe**. Le formulaire utilise JavaScript pour valider les informations d'identification avant de rediriger l'utilisateur vers le tableau de bord.
 
 ## Ajouter de Nouveaux Utilisateurs
 
@@ -60,6 +60,12 @@ const users = [
         password: "motdepasse2"
     }
 ];
+
+```
+
+
+
+
 ## Améliorations à venir
 
 - **Authentification sécurisée** : Implémenter une base de données et un backend pour une gestion plus sécurisée des utilisateurs.
@@ -72,7 +78,7 @@ Les contributions sont les bienvenues ! Si vous avez des suggestions ou des amé
 
 ## Auteurs
 
-- **Votre nom** - Créateur du projet
+- **CHERUBIN MANUNGA** - Créateur du projet
 
 ## Licence
 
