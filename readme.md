@@ -6,6 +6,8 @@ Description courte du projet.
 
 - Liste des fonctionnalités principales de ton projet.
 
+<img src="demo.png" alt="">
+
 ## Technologies utilisées
 
 - **HTML** : Description de l'utilisation de HTML dans le projet.
@@ -33,8 +35,11 @@ Description courte du projet.
 ### Fichier `styles.css`
 - Description de ce que contient le fichier `styles.css`.
 
+<img src="demo2.png" alt="">
+
 ### Fichier `script.js`
 - Description de ce que contient le fichier `script.js`.
+<img src="connexion admin.png" alt="">
 
 
 
