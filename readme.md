@@ -47,6 +47,8 @@ Le fichier JavaScript contient un tableau simulant les utilisateurs avec leurs i
 ### Fichier `PAGE DE CONNEXION.html`
 Ce fichier contient le formulaire de connexion avec deux champs : **Nom d'utilisateur** et **Mot de passe**. Le formulaire utilise JavaScript pour valider les informations d'identification avant de rediriger l'utilisateur vers le tableau de bord.
 
+<img src="connexion admin.png" alt="">
+
 ## Ajouter de Nouveaux Utilisateurs
 
 Dans le fichier `script.js`, vous pouvez ajouter de nouveaux utilisateurs au tableau `users`. Par exemple :
@@ -64,7 +66,7 @@ const users = [
 ];
 
 ```
-<img src="page_connexion.html" alt="">
+
 
 
 
