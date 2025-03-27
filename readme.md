@@ -36,6 +36,8 @@ Ce projet est une page de connexion simple qui permet à l'utilisateur de se con
 ### Fichier `index.html`
 Ce fichier contient un graphique généré avec **Chart.js**. Un graphique simple représentant l'activité de l'utilisateur est tracé à partir de données simulées.
 
+<img src="demo.png" alt="">
+
 ### Fichier `styles.css`
 Ce fichier CSS définit le style de la page de connexion et de la page du tableau de bord. Il inclut des règles de mise en page pour centrer le formulaire de connexion et le bouton, et pour styliser le graphique sur le tableau de bord.
 
@@ -62,6 +64,7 @@ const users = [
 ];
 
 ```
+<img src="page_connexion.html" alt="">
 
 
 
@@ -71,6 +74,8 @@ const users = [
 - **Authentification sécurisée** : Implémenter une base de données et un backend pour une gestion plus sécurisée des utilisateurs.
 - **Tableau de bord dynamique** : Ajouter des données réelles pour le graphique (ex. données d'activité utilisateur en temps réel).
 - **Design responsive** : Adapter le design pour les mobiles et tablettes.
+
+<img src="demo2.png" alt="">
 
 ## Contributeurs
 
